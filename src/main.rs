@@ -54,6 +54,23 @@ fn stopwatch() {
     }
 }
 
+fn timer(seconds: u64) {
+    println!("Press Ctrl+C to stop the timer");
+
+    let start = std::time::Instant::now();
+    loop {
+        let elapsed = start.elapsed().as_secs();
+        if elapsed >= seconds {
+            println!("\nTime's up!");
+            break;
+        }
+        let remaining = seconds - elapsed;
+        print!("\rTime remaining: ");
+        print_time(remaining);
+        std::thread::sleep(std::time::Duration::from_secs(1));
+    }
+}
+
 fn hide_cursor() {
     use std::io::{self, Write};
     print!("\x1B[?25l");
@@ -65,6 +82,7 @@ fn usage() {
     println!();
     println!("Commands:");
     println!("  stopwatch     Start a stopwatch");
+    println!("  timer <time>  Start a timer (format: HH:MM:SS or MM:SS or SS)");
     println!();
     println!("Options:");
     println!("  -h, --help    Show this help message");
@@ -92,10 +110,9 @@ fn main() {
                 return;
             }
 
-            let seconds = parse_time(std::env::args()
-                .nth(2)
-                .expect("No time provided"));
-        },
+            let seconds = parse_time(std::env::args().nth(2).expect("No time provided"));
+            timer(seconds);
+        }
         _ => usage(),
     }
 }
