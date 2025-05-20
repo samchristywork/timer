@@ -2,20 +2,15 @@ fn parse_time(input: String) -> u64 {
     let parts: Vec<&str> = input.split(':').collect();
 
     match parts.len() {
-        1 => {
-            let seconds = parts[0].parse::<u64>().expect("Invalid time format");
-            seconds
-        }
+        1 => parts[0].parse::<u64>().expect("Invalid time format"),
         2 => {
-            let minutes = parts[0].parse::<u64>().expect("Invalid time format");
-            let seconds = parts[1].parse::<u64>().expect("Invalid time format");
-            minutes * 60 + seconds
+            60 * parts[0].parse::<u64>().expect("Invalid time format")
+                + parts[1].parse::<u64>().expect("Invalid time format")
         }
         3 => {
-            let hours = parts[0].parse::<u64>().expect("Invalid time format");
-            let minutes = parts[1].parse::<u64>().expect("Invalid time format");
-            let seconds = parts[2].parse::<u64>().expect("Invalid time format");
-            hours * 3600 + minutes * 60 + seconds
+            3600 * parts[0].parse::<u64>().expect("Invalid time format")
+                + 60 * parts[1].parse::<u64>().expect("Invalid time format")
+                + parts[2].parse::<u64>().expect("Invalid time format")
         }
         _ => panic!("Invalid time format"),
     }
