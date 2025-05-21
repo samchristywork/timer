@@ -1,3 +1,12 @@
+use chrono::prelude::*;
+use std::env::args;
+use std::io::Write;
+use std::io::stdout;
+use std::process::exit;
+use std::thread::sleep;
+use std::time::Duration;
+use std::time::Instant;
+
 fn parse_time(input: String) -> u64 {
     let parts: Vec<&str> = input.split(':').collect();
 
@@ -22,16 +31,16 @@ fn flush() {
 }
 
 fn print_time(seconds: u64) {
-    let hours = seconds / 3600;
-    let minutes = (seconds % 3600) / 60;
-    let seconds = seconds % 60;
+    let h = seconds / 3600;
+    let m = (seconds % 3600) / 60;
+    let s = seconds % 60;
 
-    if hours > 0 {
-        print!("{}:{:02}:{:02}  ", hours, minutes, seconds);
-    } else if minutes > 0 {
-        print!("{}:{:02}  ", minutes, seconds);
+    if h > 0 {
+        print!("{}:{:02}:{:02}  ", h, m, s);
+    } else if m > 0 {
+        print!("{}:{:02}  ", m, s);
     } else {
-        print!("{}  ", seconds);
+        print!("{}  ", s);
     }
 
     flush();
@@ -40,29 +49,27 @@ fn print_time(seconds: u64) {
 fn stopwatch() {
     println!("Press Ctrl+C to stop the stopwatch");
 
-    let start = std::time::Instant::now();
+    let start = Instant::now();
     loop {
-        let elapsed = start.elapsed().as_secs();
         print!("\rElapsed time: ");
-        print_time(elapsed);
-        std::thread::sleep(std::time::Duration::from_secs(1));
+        print_time(start.elapsed().as_secs());
+        sleep(Duration::from_secs(1));
     }
 }
 
 fn timer(seconds: u64) {
     println!("Press Ctrl+C to stop the timer");
 
-    let start = std::time::Instant::now();
+    let start = Instant::now();
     loop {
-        let elapsed = start.elapsed().as_secs();
-        if elapsed >= seconds {
+        let remaining = seconds - start.elapsed().as_secs();
+        if remaining <= 0 {
             println!("\nTime's up!");
             break;
         }
-        let remaining = seconds - elapsed;
         print!("\rTime remaining: ");
         print_time(remaining);
-        std::thread::sleep(std::time::Duration::from_secs(1));
+        sleep(Duration::from_secs(1));
     }
 }
 
@@ -91,16 +98,16 @@ fn main() {
     ctrlc::set_handler(move || {
         println!("\nTimer stopped");
         print!("\x1B[?25h");
-        std::process::exit(0);
+        exit(0);
     })
     .expect("Error setting Ctrl-C handler");
 
-    match command.as_str() {
+    match args().nth(1).expect("No command provided").as_str() {
         "stopwatch" => {
             stopwatch();
         }
         "timer" => {
-            if std::env::args().len() != 3 {
+            if args().len() != 3 {
                 usage();
                 return;
             }
