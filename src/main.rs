@@ -25,11 +25,6 @@ fn parse_time(input: String) -> u64 {
     }
 }
 
-fn flush() {
-    use std::io::{self, Write};
-    io::stdout().flush().expect("Failed to flush stdout");
-}
-
 fn print_time(seconds: u64) {
     let h = seconds / 3600;
     let m = (seconds % 3600) / 60;
@@ -43,7 +38,7 @@ fn print_time(seconds: u64) {
         print!("{}  ", s);
     }
 
-    flush();
+    stdout().flush().expect("Failed to flush stdout");
 }
 
 fn stopwatch() {
