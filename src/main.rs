@@ -68,6 +68,29 @@ fn timer(seconds: u64) {
     }
 }
 
+fn alarm_date_time(date: String, time: String) {
+    let alarm_time = Local
+        .datetime_from_str(&format!("{} {}", date, time), "%Y-%m-%d %H:%M:%S")
+        .expect("Invalid date/time format");
+
+    if alarm_time < Local::now() {
+        println!("Alarm time is in the past");
+        return;
+    }
+
+    println!("Alarm set for {}", alarm_time);
+    loop {
+        let remaining = alarm_time - Local::now();
+        if remaining.num_seconds() <= 0 {
+            println!("\nTime's up!");
+            break;
+        }
+        print!("\rTime remaining: ");
+        print_time(remaining.num_seconds() as u64);
+        sleep(Duration::from_secs(1));
+    }
+}
+
 fn alarm_time(time: String) {
     let date = Local::now().format("%Y-%m-%d").to_string();
 
