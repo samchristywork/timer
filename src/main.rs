@@ -121,12 +121,13 @@ fn usage() {
     println!("Usage: timer <command> [options]");
     println!();
     println!("Commands:");
-    println!("  stopwatch     Start a stopwatch");
-    println!("  timer <time>  Start a timer (format: HH:MM:SS or MM:SS or SS)");
+    println!("  stopwatch            Start a stopwatch");
+    println!("  timer <time>         Start a timer (format: HH:MM:SS)");
+    println!("  alarm <date> <time>  Set an alarm");
+    println!("  alarm <time>         Set an alarm");
     println!();
     println!("Options:");
-    println!("  -h, --help    Show this help message");
-    std::process::exit(1);
+    println!("  -h, --help  Show this help message");
 }
 
 fn main() {
