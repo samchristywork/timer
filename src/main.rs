@@ -131,7 +131,10 @@ fn usage() {
 }
 
 fn main() {
-    let command = std::env::args().nth(1).expect("No command provided");
+    if args().len() < 2 {
+        usage();
+        exit(1);
+    }
 
     print!("\x1B[?25l");
     ctrlc::set_handler(move || {
@@ -148,12 +151,24 @@ fn main() {
         "timer" => {
             if args().len() != 3 {
                 usage();
-                return;
+            } else {
+                timer(parse_time(args().nth(2).expect("No time provided")));
             }
-
-            let seconds = parse_time(std::env::args().nth(2).expect("No time provided"));
-            timer(seconds);
         }
+        "alarm" => match args().len() {
+            4 => {
+                alarm_date_time(
+                    args().nth(2).expect("No date provided"),
+                    args().nth(3).expect("No time provided"),
+                );
+            }
+            3 => {
+                alarm_time(args().nth(2).expect("No time provided"));
+            }
+            _ => usage(),
+        },
         _ => usage(),
     }
+
+    print!("\x1B[?25h");
 }
