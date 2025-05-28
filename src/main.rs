@@ -138,7 +138,6 @@ fn main() {
 
     print!("\x1B[?25l");
     ctrlc::set_handler(move || {
-        println!("\nTimer stopped");
         print!("\x1B[?25h");
         exit(0);
     })
