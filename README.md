@@ -1,5 +1,18 @@
 ## Overview
 
+This project provides a simple, cross-platform command-line timer tool written
+in Rust.
+
+It offers three modes of operation:
+
+- Stopwatch
+- Timer
+- Alarm
+
+The main goal of this project is to offer a versatile time-keeping utility that
+can be readily integrated into scripts without relying on graphical interfaces
+or external dependencies beyond the Rust ecosystem.
+
 ## Features
 
 ## Setup
