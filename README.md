@@ -15,6 +15,15 @@ or external dependencies beyond the Rust ecosystem.
 
 ## Features
 
+- Intuitive command-line interface
+- Stopwatch mode counts time up until Ctrl+C
+- Timer mode exits after time has elapsed
+- Alarm mode exits at a specified time
+- Alarm mode accepts both time and datetime inputs
+- Continuously updating display of remaining/elapsed time
+- Lightweight single binary with few dependencies
+- Cross-platform and easy to build
+
 ## Setup
 
 ## Usage
