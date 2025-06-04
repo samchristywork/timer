@@ -26,6 +26,14 @@ or external dependencies beyond the Rust ecosystem.
 
 ## Setup
 
+Just run:
+
+```
+cargo build --release
+```
+
+Then, just use the binary at `target/release/timer`.
+
 ## Usage
 
 ## Examples
