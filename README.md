@@ -36,6 +36,19 @@ Then, just use the binary at `target/release/timer`.
 
 ## Usage
 
+```
+Usage: timer <command> [options]
+
+Commands:
+  stopwatch            Start a stopwatch
+  timer <time>         Start a timer (format: HH:MM:SS)
+  alarm <date> <time>  Set an alarm
+  alarm <time>         Set an alarm
+
+Options:
+  -h, --help  Show this help message
+```
+
 ## Examples
 
 ## Dependencies
