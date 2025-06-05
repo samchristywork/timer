@@ -51,7 +51,26 @@ Options:
 
 ## Examples
 
+```
+# Starts a stopwatch that will count up until Ctrl+C
+timer stopwatch
+```
+
+```
+# Sets a timer for ten minutes
+timer timer 10:00
+```
+
+```
+# Sets an alarm for 10PM
+timer alarm 22:00:00
+```
+
 ## Dependencies
+
+```
+Rust/Cargo
+```
 
 ## License
 
