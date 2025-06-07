@@ -1,3 +1,5 @@
+![Banner](https://s-christy.com/sbs/status-banner.svg?icon=action/alarm&hue=100&title=Timer&description=A%20simple,%20cross-platform%20command-line%20stopwatch,%20timer,%20and%20alarm%20in%20one)
+
 ## Overview
 
 This project provides a simple, cross-platform command-line timer tool written
